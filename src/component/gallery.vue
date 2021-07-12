@@ -5,7 +5,7 @@
     :class="{ 'blueimp-gallery-carousel': carousel }"
   >
     <div class="slides"></div>
-    <h3 class="title"></h3>
+    <h3 class="title">`${index}/${images.length}`</h3>
     <p class="description"></p>
     <a class="prev">
       <slot name="prev">‹</slot>
@@ -18,7 +18,7 @@
     </a>
     <ol v-if="carousel" class="indicator"></ol>
     <a v-if="carousel" class="play-pause"></a>
-    <span>`${index}/${images.length}`</span>
+    <span class="index-indicator">`${index}/${images.length}`</span>
   </div>
 </template>
 
@@ -157,5 +157,17 @@ export default {
 }
 .blueimp-gallery-controls > .description {
   display: block;
+}
+.index-indicator {
+  position: absolute;
+  color: white;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  text-align: center;
+  background: black;
+  opacity: 0.7;
+  padding: 8px;
 }
 </style>
