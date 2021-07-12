@@ -5,7 +5,7 @@
     :class="{ 'blueimp-gallery-carousel': carousel }"
   >
     <div class="slides"></div>
-    <h3 class="title">`${index}/${images.length}`</h3>
+    <h3 class="title"></h3>
     <p class="description"></p>
     <a class="prev">
       <slot name="prev">‹</slot>
@@ -13,12 +13,12 @@
     <a class="next">
       <slot name="next">›</slot>
     </a>
+    <span class="index-indicator">${index}/${images.length}</span>
     <a v-if="!carousel" class="close">
       <slot name="close">×</slot>
     </a>
     <ol v-if="carousel" class="indicator"></ol>
     <a v-if="carousel" class="play-pause"></a>
-    <span class="index-indicator">`${index}/${images.length}`</span>
   </div>
 </template>
 
