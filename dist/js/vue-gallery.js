@@ -30,12 +30,13 @@
       },
       id: {
         type: String,
-        default: 'blueimp-gallery'
+        default: "blueimp-gallery"
       }
     },
     data: function data() {
       return {
-        instance: null
+        instance: null,
+        localIndex: 0
       };
     },
     watch: {
@@ -45,13 +46,14 @@
         }
 
         if (value !== null) {
+          this.localIndex = value;
           this.open(value);
         } else {
           if (this.instance) {
             this.instance.close();
           }
 
-          this.$emit('close');
+          this.$emit("close");
         }
       }
     },
@@ -72,7 +74,7 @@
         var _this = this;
 
         var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-        var instance = typeof blueimp.Gallery !== 'undefined' ? blueimp.Gallery : blueimp;
+        var instance = typeof blueimp.Gallery !== "undefined" ? blueimp.Gallery : blueimp;
         var options = Object.assign({
           toggleControlsOnReturn: false,
           toggleControlsOnSlideClick: false,
@@ -81,29 +83,31 @@
           container: "#".concat(this.id),
           index: index,
           onopen: function onopen() {
-            return _this.$emit('onopen');
+            return _this.$emit("onopen");
           },
           onopened: function onopened() {
-            return _this.$emit('onopened');
+            return _this.$emit("onopened");
           },
           onslide: this.onSlideCustom,
           onslideend: function onslideend(index, slide) {
-            return _this.$emit('onslideend', {
+            _this.localIndex = index;
+
+            _this.$emit("onslideend", {
               index: index,
               slide: slide
             });
           },
           onslidecomplete: function onslidecomplete(index, slide) {
-            return _this.$emit('onslidecomplete', {
+            return _this.$emit("onslidecomplete", {
               index: index,
               slide: slide
             });
           },
           onclose: function onclose() {
-            return _this.$emit('close');
+            return _this.$emit("close");
           },
           onclosed: function onclosed() {
-            return _this.$emit('onclosed');
+            return _this.$emit("onclosed");
           }
         }, this.options);
 
@@ -114,7 +118,7 @@
         this.instance = instance(this.images, options);
       },
       onSlideCustom: function onSlideCustom(index, slide) {
-        this.$emit('onslide', {
+        this.$emit("onslide", {
           index: index,
           slide: slide
         });
@@ -122,7 +126,7 @@
 
         if (image !== undefined) {
           var text = image.description;
-          var node = this.instance.container.find('.description');
+          var node = this.instance.container.find(".description");
 
           if (text) {
             node.empty();
@@ -274,13 +278,13 @@
   const __vue_script__ = script;
 
   /* template */
-  var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"blueimp-gallery blueimp-gallery-controls",class:{'blueimp-gallery-carousel': _vm.carousel},attrs:{"id":_vm.id}},[_c('div',{staticClass:"slides"}),_vm._v(" "),_c('h3',{staticClass:"title"}),_vm._v(" "),_c('p',{staticClass:"description"}),_vm._v(" "),_c('a',{staticClass:"prev"},[_vm._t("prev",[_vm._v("‹")])],2),_vm._v(" "),_c('a',{staticClass:"next"},[_vm._t("next",[_vm._v("›")])],2),_vm._v(" "),(!_vm.carousel)?_c('a',{staticClass:"close"},[_vm._t("close",[_vm._v("×")])],2):_vm._e(),_vm._v(" "),(!_vm.carousel)?_c('ol',{staticClass:"indicator"}):_vm._e(),_vm._v(" "),(_vm.carousel)?_c('a',{staticClass:"play-pause"}):_vm._e()])};
+  var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"blueimp-gallery blueimp-gallery-controls",class:{ 'blueimp-gallery-carousel': _vm.carousel },attrs:{"id":_vm.id}},[_c('div',{staticClass:"slides"}),_vm._v(" "),_c('h3',{staticClass:"title"}),_vm._v(" "),_c('p',{staticClass:"description"}),_vm._v(" "),_c('a',{staticClass:"prev"},[_vm._t("prev",[_vm._v("‹")])],2),_vm._v(" "),_c('a',{staticClass:"next"},[_vm._t("next",[_vm._v("›")])],2),_vm._v(" "),_c('span',{staticClass:"index-indicator"},[_vm._v(" "+_vm._s(((_vm.localIndex + 1) + " / " + (_vm.images.length))))]),_vm._v(" "),(!_vm.carousel)?_c('a',{staticClass:"close"},[_vm._t("close",[_vm._v("×")])],2):_vm._e(),_vm._v(" "),_c('ol',{staticClass:"indicator"}),_vm._v(" "),(_vm.carousel)?_c('a',{staticClass:"play-pause"}):_vm._e()])};
   var __vue_staticRenderFns__ = [];
 
     /* style */
     const __vue_inject_styles__ = function (inject) {
       if (!inject) return
-      inject("data-v-6d2033ba_0", { source: ".blueimp-gallery>.description{position:absolute;top:30px;left:15px;color:#fff;display:none}.blueimp-gallery-controls>.description{display:block}", map: undefined, media: undefined });
+      inject("data-v-49f761b0_0", { source: ".blueimp-gallery>.description{position:absolute;top:30px;left:15px;color:#fff;display:none}.blueimp-gallery-controls>.description{display:block}.index-indicator{position:absolute;color:#fff;bottom:0;left:0;right:0;width:100%;text-align:center;background:#000;opacity:.7;padding:8px}", map: undefined, media: undefined });
 
     };
     /* scoped */

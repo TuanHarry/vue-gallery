@@ -13,21 +13,11 @@
     <a class="next">
       <slot name="next">›</slot>
     </a>
-    <span class="index-indicator">${index}/${images.length}</span>
+    <span class="index-indicator"> {{ `${localIndex + 1} / ${images.length}` }}</span>
     <a v-if="!carousel" class="close">
       <slot name="close">×</slot>
     </a>
-    <ol
-      class="indicator"
-      style="
-        text-align: center;
-        color: white;
-        background: black;
-        opacity: 0.7;
-        padding: 8px;
-      "
-    >
-      ${index}/${images.length}
+    <ol class="indicator">
     </ol>
     <a v-if="carousel" class="play-pause"></a>
   </div>
@@ -46,34 +36,35 @@ export default {
       type: Array,
       default() {
         return [];
-      },
+      }
     },
 
     options: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
 
     carousel: {
       type: Boolean,
-      default: false,
+      default: false
     },
 
     index: {
-      type: Number,
+      type: Number
     },
 
     id: {
       type: String,
-      default: "blueimp-gallery",
-    },
+      default: "blueimp-gallery"
+    }
   },
 
   data() {
     return {
       instance: null,
+      localIndex: 0
     };
   },
 
@@ -84,6 +75,7 @@ export default {
       }
 
       if (value !== null) {
+        this.localIndex = value;
         this.open(value);
       } else {
         if (this.instance) {
@@ -92,7 +84,7 @@ export default {
 
         this.$emit("close");
       }
-    },
+    }
   },
 
   mounted() {
@@ -125,12 +117,14 @@ export default {
           onopen: () => this.$emit("onopen"),
           onopened: () => this.$emit("onopened"),
           onslide: this.onSlideCustom,
-          onslideend: (index, slide) =>
-            this.$emit("onslideend", { index, slide }),
+          onslideend: (index, slide) => {
+            this.localIndex = index;
+            this.$emit("onslideend", { index, slide });
+          },
           onslidecomplete: (index, slide) =>
             this.$emit("onslidecomplete", { index, slide }),
           onclose: () => this.$emit("close"),
-          onclosed: () => this.$emit("onclosed"),
+          onclosed: () => this.$emit("onclosed")
         },
         this.options
       );
@@ -153,8 +147,8 @@ export default {
           node[0].appendChild(document.createTextNode(text));
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
