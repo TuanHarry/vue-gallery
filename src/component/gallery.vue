@@ -17,7 +17,19 @@
     <a v-if="!carousel" class="close">
       <slot name="close">×</slot>
     </a>
-    <ol v-if="carousel" class="indicator"></ol>
+    <ol
+      v-if="carousel"
+      class="indicator"
+      style="
+        text-align: center;
+        color: white;
+        background: black;
+        opacity: 0.7;
+        padding: 8px;
+      "
+    >
+      ${index}/${images.length}
+    </ol>
     <a v-if="carousel" class="play-pause"></a>
   </div>
 </template>
