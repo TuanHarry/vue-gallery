@@ -18,7 +18,6 @@
       <slot name="close">×</slot>
     </a>
     <ol
-      v-if="carousel"
       class="indicator"
       style="
         text-align: center;
