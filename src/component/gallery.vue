@@ -16,7 +16,7 @@
     <a v-if="!carousel" class="close">
       <slot name="close">×</slot>
     </a>
-    <ol v-if="!carousel" class="indicator"></ol>
+    <ol v-if="carousel" class="indicator"></ol>
     <a v-if="carousel" class="play-pause"></a>
     <span>`${index}/${images.length}`</span>
   </div>
